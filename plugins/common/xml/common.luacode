@@ -177,6 +177,13 @@ Lua code generation written by
     <template name="include"/><!--import wx.animate</template> -->
   </templates>
 
+  <templates class="wxActivityIndicator">
+    <template name="construction">
+		#utbl$name = #class( #utbl#wxparent $name, $id, $pos, $size, $window_style #ifnotnull $window_name @{, $window_name @} )
+    </template>
+    <template name="include"/><!--import wx.activityindicator</template> -->
+  </templates>
+
   <templates class="wxStaticLine">
 	<template name="construction">#utbl$name = #class( #utbl#wxparent $name, $id, $pos, $size, $style #ifnotnull $window_style @{ +$window_style @} #ifnotnull $window_name @{, $window_name @} )</template>
   </templates>

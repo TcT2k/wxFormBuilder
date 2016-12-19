@@ -210,6 +210,18 @@ Written by
     <template name="include">@#include &lt;wx/animate.h&gt;</template>
   </templates>
 
+  <templates class="wxActivityIndicator">
+    <template name="declaration">#class* $name;</template>
+    <template name="construction">
+		$name = new #class( #wxparent $name, $id, $pos, $size, $window_style #ifnotnull $window_name @{, $window_name @} );
+    </template>
+  	<template name="settings">
+				#ifnotequal $start "0"
+				@{ $name->Start(); @}
+		</template>
+    <template name="include">@#include &lt;wx/activityindicator.h&gt;</template>
+  </templates>
+
   <templates class="wxStaticLine">
     <template name="declaration">#class* $name;</template>
     <template name="construction">$name = new #class( #wxparent $name, $id, $pos, $size, $style #ifnotnull $window_style @{ |$window_style @} #ifnotnull $window_name @{, $window_name @} );</template>

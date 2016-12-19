@@ -39,6 +39,9 @@
 #if wxVERSION_NUMBER >= 2901
 #include <wx/infobar.h>
 #endif
+#if wxCHECK_VERSION(3, 1, 0)
+#include <wx/activityindicator.h>
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////
 // Custom status bar class for windows to prevent the status bar gripper from
@@ -1651,6 +1654,40 @@ void ComponentEvtHandler::OnTimer( wxTimerEvent &event )
 }
 #endif
 
+#if wxCHECK_VERSION(3, 1, 0)
+
+class ActivityIndicatorComponent : public ComponentBase
+{
+public:
+	wxObject* Create(IObject *obj, wxObject *parent)
+	{
+		wxActivityIndicator* ctrl = new wxActivityIndicator(
+			(wxWindow*)parent, -1,
+			obj->GetPropertyAsPoint(_("pos")),
+			obj->GetPropertyAsSize(_("size")),
+			obj->GetPropertyAsInteger(_("style")) | obj->GetPropertyAsInteger(_("window_style"))
+		);
+
+		return ctrl;
+	}
+
+	ticpp::Element* ExportToXrc(IObject *obj)
+	{
+		ObjectToXrcFilter xrc(obj, _("wxActivityIndicator"), obj->GetPropertyAsString(_("name")));
+		xrc.AddWindowProperties();
+		return xrc.GetXrcObject();
+	}
+
+	ticpp::Element* ImportFromXrc(ticpp::Element* xrcObj)
+	{
+		XrcToXfbFilter filter(xrcObj, _("wxActivityIndicator"));
+		filter.AddWindowProperties();
+		return filter.GetXfbObject();
+	}
+};
+
+#endif // wxCHECK_VERSION(3, 1, 0)
+
 ///////////////////////////////////////////////////////////////////////////////
 
 BEGIN_LIBRARY()
@@ -1685,6 +1722,9 @@ WINDOW_COMPONENT("wxAnimationCtrl", AnimCtrlComponent)
 #if wxVERSION_NUMBER >= 2904
 WINDOW_COMPONENT("wxInfoBar", InfoBarComponent)
 #endif
+#if wxCHECK_VERSION(3, 1, 0)
+WINDOW_COMPONENT("wxActivityIndicator", ActivityIndicatorComponent)
+#endif // wxCHECK_VERSION(3, 1, 0)
 
 // wxButton
 MACRO(wxBU_LEFT)

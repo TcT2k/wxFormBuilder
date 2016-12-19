@@ -130,6 +130,13 @@ Written by
     <property name="play" type="bool">0</property>
   </objectinfo>
 
+  <objectinfo class="wxActivityIndicator" icon="activity_indicator.xpm" type="widget">
+    <inherits class="wxWindow" />
+	<inherits class="AUI" />
+    <property name="name" type="text">m_activityIndicator</property>
+    <property name="start" type="bool" help="Automatically start activity indicator">0</property>
+  </objectinfo>
+
   <objectinfo class="wxComboBox" icon="combo_box.xpm" type="widget">
     <inherits class="wxWindow" />
 	<inherits class="AUI" />

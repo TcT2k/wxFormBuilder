@@ -172,6 +172,17 @@ Python code generation written by
     <template name="include">import wx.animate</template>
   </templates>
 
+  <templates class="wxActivityIndicator">
+    <template name="construction">
+		self.$name = #class( #wxparent $name, $id, $pos, $size, $window_style #ifnotnull $window_name @{, $window_name @} )
+    </template>
+    <template name="settings">
+		#ifnotnull $start
+		@{ #nl self.$name.Start() @}
+    </template>
+    <template name="include">import wx.activityindicator</template>
+  </templates>
+
   <templates class="wxStaticLine">
 	<template name="construction">self.$name = #class( #wxparent $name, $id, $pos, $size, $style #ifnotnull $window_style @{ |$window_style @} #ifnotnull $window_name @{, $window_name @} )</template>
   </templates>

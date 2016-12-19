@@ -172,6 +172,13 @@ PHP code generation written by
     <template name="include" />
   </templates>
 
+  <templates class="wxActivityIndicator">
+    <template name="construction">
+		@$this->$name = new #class( #wxparent $name, $id, $pos, $size, $window_style #ifnotnull $window_name @{, $window_name @} );
+    </template>
+    <template name="include" />
+  </templates>
+
   <templates class="wxStaticLine">
 	<template name="construction">@$this->$name = new #class( #wxparent $name, $id, $pos, $size, $style #ifnotnull $window_style @{ |$window_style @} #ifnotnull $window_name @{, $window_name @} );</template>
   </templates>
