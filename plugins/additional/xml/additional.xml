@@ -36,6 +36,21 @@ Written by
     <event name="OnHtmlLinkClicked" class="wxHtmlLinkEvent" help="A wxHtmlCell which contains an hyperlink was clicked." />
 </objectinfo>
 
+<objectinfo class="wxWebView" icon="htmlwin.xpm" type="widget">
+    <inherits class="wxWindow" />
+    <inherits class="AUI" />
+    <property name="name" type="text">m_webView</property>
+    <property name="url" type="wxString" help="Initial URL to load" />
+    <property name="context_menu" type="bool" help="Enable or disable the right click context menu.">1</property>
+    <property name="history" type="bool" help="Enable or disable the history.">1</property>
+    <event name="OnWebNavigating" class="wxWebViewEvent" help="Process a wxEVT_WEBVIEW_NAVIGATING event, generated before trying to get a resource. This event may be vetoed to prevent navigating to this resource. Note that if the displayed HTML document has several frames, one such event will be generated per frame." />
+    <event name="OnWebNavigated" class="wxWebViewEvent" help="Process a wxEVT_WEBVIEW_NAVIGATED event generated after it was confirmed that a resource would be requested. This event may not be vetoed. Note that if the displayed HTML document has several frames, one such event will be generated per frame." />
+    <event name="OnWebLoaded" class="wxWebViewEvent" help="Process a wxEVT_WEBVIEW_LOADED event generated when the document is fully loaded and displayed. Note that if the displayed HTML document has several frames, one such event will be generated per frame." />
+    <event name="OnWebError" class="wxWebViewEvent" help="Process a wxEVT_WEBVIEW_ERROR event generated when a navigation error occurs. The integer associated with this event will be a wxWebNavigationError item. The string associated with this event may contain a backend-specific more precise error message/code." />
+    <event name="OnWebNewWindow" class="wxWebViewEvent" help="Process a wxEVT_WEBVIEW_NEWWINDOW event, generated when a new window is created. You must handle this event if you want anything to happen, for example to load the page in a new window or tab. " />
+    <event name="OnWebTitleChanged" class="wxWebViewEvent" help="Process a wxEVT_WEBVIEW_TITLE_CHANGED event, generated when the page title changes. Use GetString to get the title." />
+</objectinfo>
+
 <objectinfo class="wxRichTextCtrl" icon="richtextctrl.xpm" type="expanded_widget">
     <inherits class="wxWindow">
     <property name="window_style">wxVSCROLL|wxHSCROLL|wxNO_BORDER|wxWANTS_CHARS</property>

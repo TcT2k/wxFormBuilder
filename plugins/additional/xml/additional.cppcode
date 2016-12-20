@@ -35,6 +35,31 @@ Written by
 	<template name="evt_connect_OnHtmlLinkClicked">$name->Connect( wxEVT_COMMAND_HTML_LINK_CLICKED, #handler, NULL, this );</template>
   </templates>
 
+  <templates class="wxWebView">
+    <template name="declaration">#class* $name;</template>
+    <template name="construction">$name = wxWebView::New( #wxparent $name, $id, $url, $pos, $size, $window_style #ifnotnull $window_name @{, $window_name @} );</template>
+  	<template name="settings">
+				#ifnotequal $context_menu "1"
+				@{ $name->EnableContextMenu( $context_menu ); @}
+
+				#ifnotequal $history "1"
+				@{ $name->EnableHistory( $history ); @}
+		</template>
+    <template name="include">@#include &lt;wx/webview.h&gt;</template>
+		<template name="evt_entry_OnWebNavigating">EVT_WEBVIEW_NAVIGATING( $id, #handler )</template>
+		<template name="evt_connect_OnWebNavigating">$name->Connect( wxEVT_WEBVIEW_NAVIGATING, #handler, NULL, this );</template>
+		<template name="evt_entry_OnWebNavigated">EVT_WEBVIEW_NAVIGATED( $id, #handler )</template>
+		<template name="evt_connect_OnWebNavigated">$name->Connect( wxEVT_WEBVIEW_NAVIGATED, #handler, NULL, this );</template>
+		<template name="evt_entry_OnWebLoaded">EVT_WEBVIEW_LOADED( $id, #handler )</template>
+		<template name="evt_connect_OnWebLoaded">$name->Connect( wxEVT_WEBVIEW_LOADED, #handler, NULL, this );</template>
+		<template name="evt_entry_OnWebError">EVT_WEBVIEW_ERROR( $id, #handler )</template>
+		<template name="evt_connect_OnWebError">$name->Connect( wxEVT_WEBVIEW_ERROR, #handler, NULL, this );</template>
+		<template name="evt_entry_OnWebNewWindow">EVT_WEBVIEW_NEWWINDOW( $id, #handler )</template>
+		<template name="evt_connect_OnWebNewWindow">$name->Connect( wxEVT_WEBVIEW_NEWWINDOW, #handler, NULL, this );</template>
+		<template name="evt_entry_OnWebTitleChanged">EVT_WEBVIEW_TITLE_CHANGED( $id, #handler )</template>
+		<template name="evt_connect_OnWebTitleChanged">$name->Connect( wxEVT_WEBVIEW_TITLE_CHANGED, #handler, NULL, this );</template>
+  </templates>
+
   <templates class="wxRichTextCtrl">
     <template name="declaration">#class* $name;</template>
     <template name="construction">$name = new #class( #wxparent $name, $id, wxEmptyString, $pos, $size, $style #ifnotnull $window_style @{ |$window_style @} #ifnotnull $window_name @{, wxDefaultValidator, $window_name @} );</template>

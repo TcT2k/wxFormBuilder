@@ -5,16 +5,24 @@ set(CMAKE_CXX_STANDARD 11)
 
 if(APPLE OR (WIN32 AND MSVC))
     set(FB_USE_MEDIACTRL_DEFAULT ON)
+    set(FB_USE_WEBVIEW_DEFAULT ON)
 else()
     set(FB_USE_MEDIACTRL_DEFAULT OFF)
+    set(FB_USE_WEBVIEW_DEFAULT OFF)
 endif()
 option(FB_USE_MEDIACTRL "Use wxMediaCtrl" ${FB_USE_MEDIACTRL_DEFAULT})
+option(FB_USE_WEBVIEW "Use wxWebView" ${FB_USE_WEBVIEW_DEFAULT})
 
 set(WXLIBS gl aui adv html core net base xml stc richtext propgrid ribbon xrc)
 
 if(FB_USE_MEDIACTRL)
     list(APPEND WXLIBS media)
     add_definitions(-DUSE_MEDIACTRL)
+endif()
+
+if(FB_USE_WEBVIEW)
+    list(APPEND WXLIBS webview)
+    add_definitions(-DUSE_WEBVIEW)
 endif()
 
 find_package(wxWidgets 3.0.0 COMPONENTS ${WXLIBS} REQUIRED)

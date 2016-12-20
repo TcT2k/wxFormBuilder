@@ -75,6 +75,10 @@
 	#include <wx/srchctrl.h>
 #endif
 
+#if USE_WEBVIEW
+	#include <wx/webview.h>
+#endif
+
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -2310,6 +2314,26 @@ class RibbonGalleryItemComponent : public ComponentBase{};
 
 #endif
 
+#if USE_WEBVIEW
+class WebViewComponent : public ComponentBase
+{
+public:
+	wxObject* Create(IObject* obj, wxObject* parent)
+	{
+		wxWebView* webViewCtrl = wxWebView::New((wxWindow *)parent,
+			wxID_ANY,
+			obj->GetPropertyAsString(_("url")),
+			obj->GetPropertyAsPoint(_("pos")),
+			obj->GetPropertyAsSize(_("size")),
+			wxWebViewBackendDefault,
+			obj->GetPropertyAsInteger(_("window_style")));
+
+		return webViewCtrl;
+	}
+};
+#endif // USE_WEBVIEW
+
+
 ///////////////////////////////////////////////////////////////////////////////
 
 BEGIN_LIBRARY()
@@ -2344,6 +2368,10 @@ ABSTRACT_COMPONENT("ribbonDropdownTool", RibbonDropdownToolComponent)
 ABSTRACT_COMPONENT("ribbonHybridTool", RibbonHybridToolComponent)
 ABSTRACT_COMPONENT("ribbonToggleTool", RibbonToggleToolComponent)
 ABSTRACT_COMPONENT("ribbonGalleryItem", RibbonGalleryItemComponent)
+
+#if USE_WEBVIEW
+WINDOW_COMPONENT("wxWebView", WebViewComponent)
+#endif // USE_WEBVIEW
 
 // wxCheckListBox
 WINDOW_COMPONENT("wxCheckListBox",CheckListBoxComponent)
