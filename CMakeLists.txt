@@ -3,7 +3,21 @@ cmake_minimum_required(VERSION 3.0)
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMakeModules)
 set(CMAKE_CXX_STANDARD 11)
 
-find_package(wxWidgets 3.0.0 COMPONENTS gl aui adv html core net base xml stc richtext propgrid ribbon xrc REQUIRED)
+if(APPLE OR (WIN32 AND MSVC))
+    set(FB_USE_MEDIACTRL_DEFAULT ON)
+else()
+    set(FB_USE_MEDIACTRL_DEFAULT OFF)
+endif()
+option(FB_USE_MEDIACTRL "Use wxMediaCtrl" ${FB_USE_MEDIACTRL_DEFAULT})
+
+set(WXLIBS gl aui adv html core net base xml stc richtext propgrid ribbon xrc)
+
+if(FB_USE_MEDIACTRL)
+    list(APPEND WXLIBS media)
+    add_definitions(-DUSE_MEDIACTRL)
+endif()
+
+find_package(wxWidgets 3.0.0 COMPONENTS ${WXLIBS} REQUIRED)
 include(${wxWidgets_USE_FILE})
 
 set(CPACK_PACKAGE_VERSION_MAJOR 3)
